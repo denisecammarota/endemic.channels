@@ -6,45 +6,50 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of endemic.channels is to …
+The goal of endemic.channels is to provide functions to compute and plot
+endemic channels, using the methodology described in ‘Establishing
+endemic levels of ranges with computer spreadsheets’ (Bortman, 1999).
 
 ## Installation
 
 You can install the development version of endemic.channels like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+library(devtools)
+devtools::install_github("denisecammarota/endemic.channels")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Calculating the endemic channels for dummy data, called dengueSP, which
+contains the data on dengue cases in the Sao Paulo municipality in
+2010-2023:
 
 ``` r
+library(tidyverse)
+#> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.5
+#> ✔ forcats   1.0.0     ✔ stringr   1.5.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+#> ✔ purrr     1.0.2     
+#> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+#> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+library(ggplot2)
 library(endemic.channels)
-## basic example code
+data("dengueSP")
+res <- endemic_channel(dengueSP, type = 'geometric', remove_53 = TRUE, show_plot = FALSE)
+end_channels <- res[1]
+plot <- res[2]
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+The output plot should look something like this:
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+print(plot)
+#> $plot
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-plot-1.png" width="100%" />

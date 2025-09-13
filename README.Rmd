@@ -18,37 +18,35 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of endemic.channels is to ...
+The goal of endemic.channels is to provide functions to compute - using geometrical and arithmetic means - and plot endemic channels, using the methodology described in 'Establishing endemic levels of ranges with computer spreadsheets' (Bortman, 1999) as a basis.
 
 ## Installation
 
 You can install the development version of endemic.channels like so:
 
 ``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+library(devtools)
+devtools::install_github("denisecammarota/endemic.channels")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+Calculating the endemic channels for dummy data, called dengueSP, which contains the data on dengue cases in the Sao Paulo municipality in 2010-2023:
 
 ```{r example}
+library(tidyverse)
+library(ggplot2)
 library(endemic.channels)
-## basic example code
+data("dengueSP")
+res <- endemic_channel(dengueSP, type = 'geometric', remove_53 = TRUE, show_plot = FALSE)
+end_channels <- res[1]
+plot <- res[2]
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+The output plot should look something like this:
 
-```{r cars}
-summary(cars)
+```{r plot}
+print(plot)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
